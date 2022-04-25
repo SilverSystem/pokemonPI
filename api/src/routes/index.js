@@ -1,5 +1,6 @@
 const { default: axios } = require('axios');
 const { Router } = require('express');
+const {Pokemon} = require('../models/Pokemon.js')
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -45,7 +46,10 @@ router.get('/pokemons/:idPokemon',async (req,res) =>{
 
 router.get('/pokemons',async (req,res) =>{
     try {
-    
+        const {name} = req.query;
+        const pokemon = (await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)).data;
+        //if(!pokemon) throw new Error('No existe ningun pokemon con ese nombre');
+        res.json(pokemon);
     } catch (error) {
         console.log(error);
     }    
@@ -53,7 +57,9 @@ router.get('/pokemons',async (req,res) =>{
 
 router.post('/pokemons',async (req,res) =>{
     try {
-    
+    const {name,types,health,attack,defense,speed,weight,height} = req.body;
+    const newPokemon = await Pokemon.create({name,types,health,attack,defense,speed,weight,height});
+     res.json(newPokemon);
     } catch (error) {
         console.log(error);
     }    
@@ -61,7 +67,8 @@ router.post('/pokemons',async (req,res) =>{
 
 router.get('/types',async (req,res) =>{
     try {
-    
+        const pokemonsType = (await axios.get('https://pokeapi.co/api/v2/type')).data;
+        res.json(pokemonsType)
     } catch (error) {
         console.log(error);
     }    

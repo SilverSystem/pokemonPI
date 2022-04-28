@@ -91,7 +91,10 @@ router.get('/pokemons/:idPokemon',async (req,res,next) =>{
         const regExp = /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
         if(regExp.test(idPokemon)){
             const pokemonsito = await Pokemon.findByPk(idPokemon,{
-                include: Type
+                include: [{
+                    model: Type,
+                    through: { attributes: [] }
+                  }]
               });
             if(!pokemonsito) res.status(404).send("No existe ningun Pokemon con ese id")
             return res.json(pokemonsito);
@@ -113,7 +116,7 @@ router.get('/pokemons/:idPokemon',async (req,res,next) =>{
 router.post('/pokemons',async (req,res,next) =>{
     try {
     const {name,types,img,health,attack,defense,speed,weight,height} = req.body;
-    const newPokemon = await Pokemon.create({name,img,health,attack,defense,speed,weight,height});
+    let newPokemon = await Pokemon.create({name,img,health,attack,defense,speed,weight,height});
     let  dbTypes = [];
     for (let i = 0; i < types.length; i++) {
         let aux = await Type.findOne({
@@ -126,7 +129,7 @@ router.post('/pokemons',async (req,res,next) =>{
     }
 
     await newPokemon.addTypes(dbTypes);
-     res.json(newPokemon);
+     res.json({...newPokemon.dataValues,types});
     } catch (error) {
         console.log(error);
         next(error)

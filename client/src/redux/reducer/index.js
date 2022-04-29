@@ -1,8 +1,9 @@
-import { GET_POKEMONS,GET_POKEMONS_DETAILS,CLEAR_DETAILS,POST_POKEMON } from "../actions/actionTypes";
+import { GET_POKEMONS,GET_POKEMONS_DETAILS,CLEAR_DETAILS,POST_POKEMON, GET_TYPES } from "../actions/actionTypes";
 
 const initialState ={
     pokemons: [],
-    pokemonDetail:{}
+    pokemonDetail:{},
+    pokemonsTypes:[]
 }
 export default function reducer(state= initialState,action){
     switch(action.type){
@@ -27,8 +28,14 @@ export default function reducer(state= initialState,action){
         case POST_POKEMON:
             return{
                 ...state,
-                pokemons: [...state.pokemons, action.payload]
+                pokemons: [action.payload,...state.pokemons]
             }
+
+        case GET_TYPES:
+            return{
+                ...state,
+                pokemonsTypes: [...state.pokemonsTypes,...action.payload]
+            }  
 
         default: return state;
     }

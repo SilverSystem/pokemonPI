@@ -1,4 +1,4 @@
-import { GET_POKEMONS,GET_POKEMONS_DETAILS,CLEAR_DETAILS, POST_POKEMON } from "./actionTypes";
+import { GET_POKEMONS,GET_POKEMONS_DETAILS,CLEAR_DETAILS, POST_POKEMON,GET_TYPES } from "./actionTypes";
 import axios from 'axios';
 
 export function getPokemons(){
@@ -41,4 +41,14 @@ export function postPokemon (pokemon){
     };
 } 
 
-   
+export function getTypes(){
+    return async dispatch =>{
+        try {
+            const pokemonsTypes = (await axios.get('http://localhost:3001/tipos')).data;
+            dispatch({type: GET_TYPES, payload: pokemonsTypes})
+        } catch (error) {
+            console.log('Error en action creator getTypes');
+            console.log(error);
+        }
+    }
+};

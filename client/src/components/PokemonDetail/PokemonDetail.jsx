@@ -11,7 +11,7 @@ export default function PokemonDetail(){
     useEffect(()=>{
         dispatch(getDetails(idPokemon));
         return () => dispatch(clearDetails());
-    },[dispatch,idPokemon]);
+    },[]); // eslint-disable-line 
     return (
         <div>
             <Link to="/home"><button>Volver a Home</button></Link>

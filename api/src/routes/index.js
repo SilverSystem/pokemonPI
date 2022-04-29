@@ -97,7 +97,8 @@ router.get('/pokemons/:idPokemon',async (req,res,next) =>{
                   }]
               });
             if(!pokemonsito) res.status(404).send("No existe ningun Pokemon con ese id")
-            return res.json(pokemonsito);
+            const types = pokemonsito.Types.map(el => el.name);
+            return res.json({...pokemonsito.dataValues,types});
         }
         const pokemon = (await axios.get(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)).data;
         let {name,types,stats,sprites,weight,height} = pokemon;
@@ -146,6 +147,18 @@ router.get('/types',async (req,res,next) =>{
         next(error)
     }    
 });
+
+router.get('/tipos', async (req,res,next) =>{
+    try {
+        const pokemonsTypes = await Type.findAll({
+            attributes:['id','name']
+        });
+        res.json(pokemonsTypes);
+    } catch (error) {
+        console.log(error);
+        next(error)
+    }
+})
 
 
 module.exports = router;

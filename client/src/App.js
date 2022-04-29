@@ -11,8 +11,8 @@ function App() {
       <h1>Henry Pokemon</h1>
       <Route exact path='/'> <InitPage/> </Route>
       <Route path='/home' component={Home}/> 
-      <Route exact path={`/pokemons/:idPokemon`} component={PokemonDetail}/>
-      <Route path='/pokemons/create' component={CreatePokemon}/>
+      <Route exact path='/pokemons/:idPokemon' component={PokemonDetail}/>
+      <Route path='/createPokemon' component={CreatePokemon}/>
     </div>
   );
 }

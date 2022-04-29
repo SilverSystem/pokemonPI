@@ -4,7 +4,7 @@ export default function SearchBar(){
     return (
         <form onSubmit={(e) => {e.preventDefault()}}>
             <input
-              type="text"
+              type="search"
               placeholder="Pokemon..."
               //value={}
               //onChange={}

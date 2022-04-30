@@ -1,14 +1,14 @@
 import React from "react";
 
 
-export default function Buttons(){
+export default function Buttons({handleCreatedClicked,handleTypesClicked}){
     return (
         <div>
                 <div>
-                    <button>Filtrar por Tipo</button>
+                    <button onClick={handleTypesClicked}>Filtrar por Tipo</button>
                 </div>
                 <div>
-                    <button>Mostrar solo los Pokemons Creados</button>
+                    <button onClick={handleCreatedClicked}>Mostrar solo los Pokemons Creados</button>
                 </div>
                 <div>
                     <button>Ordenar ascendentemente por Nombre</button>

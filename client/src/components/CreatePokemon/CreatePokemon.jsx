@@ -19,7 +19,6 @@ export default function CreatePokemon(){
     });
     const dispatch = useDispatch();
     const pokemonsTypes = useSelector(state => state.pokemonsTypes);
-    console.log('Tipos',pokemonsTypes)
     const history = useHistory();
     const shoulDisabled = !(formDetails.name && formDetails.img && formDetails.health && formDetails.attack && formDetails.defense && formDetails.speed && formDetails.height && formDetails.weight && formDetails.types.length);
 

@@ -1,19 +1,21 @@
-import { GET_POKEMONS,GET_POKEMONS_DETAILS,CLEAR_DETAILS,POST_POKEMON, GET_TYPES } from "../actions/actionTypes";
+import { GET_POKEMONS,GET_POKEMON_DETAILS,CLEAR_DETAILS,POST_POKEMON, GET_TYPES,GET_POKEMON_NAME} from "../actions/actionTypes";
 
 const initialState ={
     pokemons: [],
+    nameSortedPokemons:[],
+    pokemonsTypes:[],
     pokemonDetail:{},
-    pokemonsTypes:[]
 }
 export default function reducer(state= initialState,action){
     switch(action.type){
         case GET_POKEMONS:
             return {
                 ...state,
-                pokemons: [...state.pokemons, ...action.payload]
+                pokemons: [...action.payload]
             }
 
-        case GET_POKEMONS_DETAILS:
+        case GET_POKEMON_DETAILS:
+        case GET_POKEMON_NAME:
             return {
                 ...state,
                 pokemonDetail: action.payload
@@ -28,7 +30,8 @@ export default function reducer(state= initialState,action){
         case POST_POKEMON:
             return{
                 ...state,
-                pokemons: [action.payload,...state.pokemons]
+                pokemons: [action.payload,...state.pokemons],
+                createdPokemons: [...state.createdPokemons,action.payload]
             }
 
         case GET_TYPES:
@@ -36,7 +39,7 @@ export default function reducer(state= initialState,action){
                 ...state,
                 pokemonsTypes: [...state.pokemonsTypes,...action.payload]
             }  
-
+   
         default: return state;
     }
 }

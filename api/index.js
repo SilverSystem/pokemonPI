@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const feedDb = require('./src/utils')
+const {feedDb} = require('./src/utils');
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {

@@ -1,4 +1,4 @@
-import { GET_POKEMONS,GET_POKEMONS_DETAILS,CLEAR_DETAILS, POST_POKEMON,GET_TYPES } from "./actionTypes";
+import { GET_POKEMONS,GET_POKEMON_DETAILS,CLEAR_DETAILS, POST_POKEMON,GET_TYPES,GET_POKEMON_NAME } from "./actionTypes";
 import axios from 'axios';
 
 export function getPokemons(){
@@ -17,7 +17,7 @@ export function getDetails(id){
     return async dispatch =>{
         try {
             const pokemon = (await axios.get(`http://localhost:3001/pokemons/${id}`)).data;
-            dispatch({type: GET_POKEMONS_DETAILS,payload: pokemon})   
+            dispatch({type: GET_POKEMON_DETAILS,payload: pokemon})   
         } catch (error) {
             console.log('Error en action creator getDetails');
             console.log(error);
@@ -52,3 +52,15 @@ export function getTypes(){
         }
     }
 };
+
+export function getByName(name){
+    return async dispatch =>{
+        try {
+            const pokemon = (await axios.get(`http://localhost:3001/pokemons?name=${name}`)).data;
+            dispatch({type: GET_POKEMON_NAME,payload:pokemon});
+        } catch (error) {
+            console.log('Error en action creator getByName');
+            console.log(error);
+        }
+    }
+}

@@ -1,6 +1,7 @@
 const { default: axios } = require('axios');
 const { Router } = require('express');
 const {Pokemon, Type} = require('../db');
+const {getPokemonByName} = require('../utils')
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -15,36 +16,9 @@ const router = Router();
 router.get('/pokemons',async (req,res,next) =>{
     try {
         const {name} = req.query;
-        if(name){
-            const filteredPokemon = await Pokemon.findOne({ 
-                where:{ name },
-                include: Type 
-            });
-            if(!filteredPokemon){
-                let pokemon = (await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)).data;
-                if(!pokemon) res.status(404).send('No existe ningun Pokemon con ese nombre');
-
-                let {name,types,sprites,stats,weight,height} = pokemon;
-                types = types.map(el => el.type.name);
-                const health = stats[0].base_stat;
-                const attack = stats[1].base_stat;
-                const defense = stats[2].base_stat;
-                const speed = stats[5].base_stat; 
-                pokemon = {
-                    name,
-                    types,
-                    img:sprites.other['official-artwork'].front_default,
-                    health,
-                    attack,
-                    defense,
-                    speed,
-                    weight,
-                    height
-                }
-                return res.json(pokemon);
-            }
-            return res.json(filteredPokemon);
-        }
+        
+        if(name) return res.json(await getPokemonByName(name));
+        
         const allData = (await axios.get('https://pokeapi.co/api/v2/pokemon')).data;
 
         let pokemons = allData.results.map(el => axios.get(el.url));
@@ -71,18 +45,6 @@ router.get('/pokemons',async (req,res,next) =>{
         next(error)  
     }
 });
-
-// router.get('/pokemons',async (req,res,next) =>{
-//     try {
-//         const {name} = req.query;
-//         const pokemon = (await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)).data;
-//         //if(!pokemon) throw new Error('No existe ningun pokemon con ese nombre');
-//         res.json(pokemon);
-//     } catch (error) {
-//         console.log(error);
-//         next(error)
-//     }    
-// });
 
 router.get('/pokemons/:idPokemon',async (req,res,next) =>{
 

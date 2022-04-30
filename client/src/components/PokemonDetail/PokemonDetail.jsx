@@ -9,7 +9,7 @@ export default function PokemonDetail(){
     const dispatch = useDispatch();
     const {idPokemon} = useParams();
     useEffect(()=>{
-        dispatch(getDetails(idPokemon));
+        if(Object.keys(pokemonDetail).length === 0) dispatch(getDetails(idPokemon));
         return () => dispatch(clearDetails());
     },[]); // eslint-disable-line 
     return (
@@ -21,7 +21,7 @@ export default function PokemonDetail(){
                <div>
                    <h3>Nombre: {pokemonDetail.name}</h3>
                    <span><p>Número de Pokemon: {pokemonDetail.id}</p></span>
-                   <span><p>Tipos: {pokemonDetail.types}</p></span>
+                   <span><p>Tipos: {pokemonDetail.types.join(', ')}</p></span>
                    <h5>Vida: {pokemonDetail.health}</h5>
                    <h5>Fuerza: {pokemonDetail.attack}</h5>
                    <h5>Defensa: {pokemonDetail.defense}</h5>

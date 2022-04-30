@@ -13,6 +13,12 @@ export default function Home(){
     const filledState = !!pokemons.length;
     const [currentPage,setCurrentPage] = useState(1);
     const pokemonsPerPage = 12;
+    const [createdClicked,setCreatedClicked] = useState(false);
+    const handleCreatedClicked = () => setCreatedClicked(prevState => !prevState);
+    const [typesClicked,setTypesClicked] = useState(false);
+    const handleTypesClicked = () => setTypesClicked(prevState => !prevState);
+    const [searched,setSearched] = useState('');
+    const handleSearched = (name) => setSearched(name);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -27,11 +33,12 @@ export default function Home(){
     return (
         <div>
             {console.log('Render Home')}
-            <Nav/>
-            <Buttons/>
+            <Nav handleSearched={handleSearched}/>
+            <Buttons handleCreatedClicked={handleCreatedClicked} handleTypesClicked={handleTypesClicked}/>
             {/*<Link to='/home'> Volver al home </Link>*/}
-            {filledState && <Pagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons.length} paginate={paginate}/>}
-            {filledState ? <Pokemons pokemons={currentPokemons}/> : <h2>Cargando...</h2>}
+            {filledState && !searched && <Pagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons.length} paginate={paginate}/>}
+            {filledState ? <Pokemons pokemons={currentPokemons} listCreatedPokemons={createdClicked} listTypes={typesClicked} searched={searched}/> 
+            : <h2>Cargando...</h2>}
         </div>
     )
 };

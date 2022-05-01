@@ -12,7 +12,7 @@ export default function Pagination({pokemonsPerPage,totalPokemons,paginate}){
     return (
         <div>
             <ul>
-                {pageNumbers.map(pageNumber => <li key={pageNumber}> <Link to={`/home/${pageNumber}`}onClick={() => paginate(pageNumber)}>{pageNumber}</Link> </li>)}
+                {pageNumbers.map(pageNumber => <li key={pageNumber}> <Link to ='/home' onClick={() => paginate(pageNumber)}>{pageNumber}</Link> </li>)}
             </ul>
         </div>
     )

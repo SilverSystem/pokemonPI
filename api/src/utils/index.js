@@ -43,7 +43,8 @@ const getPokemonByName = async (pokemonName) =>{
       }
       return pokemon;
   }
-  return filteredPokemon;
+  const types = filteredPokemon.Types.map(el => el.name);
+  return {...filteredPokemon.dataValues,types};
 }
 
 module.exports =  {

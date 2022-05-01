@@ -19,7 +19,7 @@ export default function PokemonDetail(){
            {
                pokemonDetail.name ?
                <div>
-                   <h3>Nombre: {pokemonDetail.name}</h3>
+                   <h3>Nombre: {pokemonDetail.name.charAt(0).toUpperCase() +pokemonDetail.name.slice(1)}</h3>
                    <span><p>Número de Pokemon: {pokemonDetail.id}</p></span>
                    <span><p>Tipos: {pokemonDetail.types.join(', ')}</p></span>
                    <h5>Vida: {pokemonDetail.health}</h5>

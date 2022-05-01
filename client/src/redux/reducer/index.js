@@ -1,8 +1,8 @@
-import { GET_POKEMONS,GET_POKEMON_DETAILS,CLEAR_DETAILS,POST_POKEMON, GET_TYPES,GET_POKEMON_NAME} from "../actions/actionTypes";
+import { GET_POKEMONS,GET_POKEMON_DETAILS,CLEAR_DETAILS,POST_POKEMON, GET_TYPES,GET_POKEMON_NAME,} from "../actions/actionTypes";
 
 const initialState ={
     pokemons: [],
-    nameSortedPokemons:[],
+    createdPokemons:[],
     pokemonsTypes:[],
     pokemonDetail:{},
 }
@@ -39,7 +39,7 @@ export default function reducer(state= initialState,action){
                 ...state,
                 pokemonsTypes: [...state.pokemonsTypes,...action.payload]
             }  
-   
+        
         default: return state;
     }
 }

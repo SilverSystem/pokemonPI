@@ -1,4 +1,4 @@
-import { GET_POKEMONS,GET_POKEMON_DETAILS,CLEAR_DETAILS, POST_POKEMON,GET_TYPES,GET_POKEMON_NAME } from "./actionTypes";
+import { GET_POKEMONS,GET_POKEMON_DETAILS,CLEAR_DETAILS, POST_POKEMON,GET_TYPES,GET_POKEMON_NAME} from "./actionTypes";
 import axios from 'axios';
 
 export function getPokemons(){

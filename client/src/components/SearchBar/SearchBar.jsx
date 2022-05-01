@@ -10,6 +10,7 @@ export default function SearchBar({handleSearched}){
     e.preventDefault();
     handleSearched(search.toLowerCase());
     dispatch(getByName(search.toLowerCase()));
+    setSearch('');
   };
     return (
         <form onSubmit={handleSubmit}>

@@ -25,7 +25,7 @@ export default function CreatePokemon(){
     const handleOnChange= (e) => {
         setFormDetails({
             ...formDetails,
-            [e.target.name] : e.target.value
+            [e.target.name] : e.target.value.toLowerCase()
         })
     };
 
@@ -44,8 +44,8 @@ export default function CreatePokemon(){
     };
 
     const validateStats = (e) => {
-        if(Number(e.target.value) > 120) {
-          setError(`La estadistica ${e.target.name} no puede ser mayor a 120`);
+        if(Number(e.target.value) > 120 || Number(e.target.value) < 0) {
+          setError(`La estadistica ${e.target.name} no puede ser menor a 0 o mayor a 120 `);
         } else {
           setError('');
         }
@@ -53,8 +53,8 @@ export default function CreatePokemon(){
       };
 
       const validateHeight = (e) => {
-        if(Number(e.target.value) > 36) {
-          setError(`La altura del pokemon no puede ser mayor a 36 pulgadas`);
+        if(Number(e.target.value) > 36 || Number(e.target.value) < 0) {
+          setError(`La altura del pokemon no puede ser menor a 0 o mayor a 36 pulgadas`);
         } else {
           setError('');
         }

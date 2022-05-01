@@ -16,7 +16,7 @@ const router = Router();
 router.get('/pokemons',async (req,res,next) =>{
     try {
         const {name} = req.query;
-        
+
         if(name) return res.json(await getPokemonByName(name));
         
         const allData = (await axios.get('https://pokeapi.co/api/v2/pokemon')).data;
@@ -25,12 +25,13 @@ router.get('/pokemons',async (req,res,next) =>{
         let pokemonsData = await Promise.all(pokemons);
 
         pokemonsData = pokemonsData.map(el => {
-            let {id,name,types,sprites} = el.data;
+            let {id,name,types,sprites,stats} = el.data;
             types = types.map(el => el.type.name);
-            return{id,name,types,img:sprites.other['official-artwork'].front_default}
+            const attack = stats[1].base_stat;
+            return{id,name,types,img:sprites.other['official-artwork'].front_default,attack}
         });
         const dbPokemons = await Pokemon.findAll({
-            attributes:['id','name','img'],
+            attributes:['id','name','img','attack'],
             // include: Type,
             include: [{
                 model: Type,
@@ -39,7 +40,13 @@ router.get('/pokemons',async (req,res,next) =>{
         });
         //console.log('Pokemons de la DB')
         //dbPokemons.forEach(e => console.log(e.toJSON()));
-        res.json([...dbPokemons,...pokemonsData]);
+        let fixeDbPokemons = [];
+        dbPokemons.forEach(el =>{ 
+            const {id,name,img,attack} = el
+            const types = el.Types.map(t => t.name);
+            fixeDbPokemons.push({id,name,img,attack,types})
+            })
+        res.json([...fixeDbPokemons,...pokemonsData]);
     } catch (error) { 
         console.log(error); 
         next(error)  

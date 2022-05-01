@@ -9,9 +9,9 @@ function App() {
   return (
     <div>
       <h1>Henry Pokemon</h1>
-      <Route exact path='/'> <InitPage/> </Route>
+      <Route exact={true} path='/'> <InitPage/> </Route>
       <Route path='/home' component={Home}/> 
-      <Route exact path='/pokemons/:idPokemon' component={PokemonDetail}/>
+      <Route exact={true} path='/pokemons/:idPokemon' component={PokemonDetail}/>
       <Route path='/createPokemon' component={CreatePokemon}/>
     </div>
   );

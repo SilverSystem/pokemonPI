@@ -1,13 +1,14 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
+// import s from './Home.module.css';
 import Nav from '../Nav/Nav';
-//import {Link} from 'react-router-dom';
 import Pokemons from '../Pokemons/Pokemons';
 import Buttons from '../Buttons/Buttons';
-
+import { useDispatch } from 'react-redux';
+import { clearDetails } from '../../redux/actions';
 
 
 export default function Home(){
-
+    const dispatch = useDispatch();
     const [createdClicked,setCreatedClicked] = useState(false);
     const handleCreatedClicked = (reset = true) => setCreatedClicked(prevState => reset && !prevState);
     const [typesClicked,setTypesClicked] = useState(false);
@@ -19,7 +20,9 @@ export default function Home(){
     const [attackOrdered,setAttackOrdered] = useState('');
     const handleAttackOrdered = (name) => setAttackOrdered(name);
 
-
+    useEffect(()=>{
+         dispatch(clearDetails());
+    },[searched]); // eslint-disable-line 
 
 
     return (
@@ -28,11 +31,8 @@ export default function Home(){
             <Nav handleSearched={handleSearched}/>
             <Buttons handleCreatedClicked={handleCreatedClicked} handleTypesClicked={handleTypesClicked} 
             handleNameOrdered={handleNameOrdered} handleAttackOrdered={handleAttackOrdered} handleSearched={handleSearched}/>
-            {/*<Link to='/home'> Volver al home </Link>*/}
             <Pokemons listCreatedPokemons={createdClicked} listTypes={typesClicked} searched={searched} 
             nameOrdered={nameOrdered} attackOrdered={attackOrdered}/>
         </div>
     )
 };
-
-

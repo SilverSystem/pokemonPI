@@ -30,7 +30,7 @@ router.get('/pokemons',async (req,res,next) =>{
             const attack = stats[1].base_stat;
             return{id,name,types,img:sprites.other['official-artwork'].front_default,attack}
         });
-        const dbPokemons = await Pokemon.findAll({
+        const dbPokemons = await Pokemon.findAll({ 
             attributes:['id','name','img','attack'],
             // include: Type,
             include: [{

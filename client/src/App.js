@@ -8,10 +8,9 @@ import CreatePokemon from './components/CreatePokemon/CreatePokemon';
 function App() {
   return (
     <div>
-      <h1>Henry Pokemon</h1>
-      <Route exact={true} path='/'> <InitPage/> </Route>
+      <Route exact path='/'> <InitPage/> </Route>
       <Route path='/home' component={Home}/> 
-      <Route exact={true} path='/pokemons/:idPokemon' component={PokemonDetail}/>
+      <Route exact path='/pokemons/:idPokemon' component={PokemonDetail}/>
       <Route path='/createPokemon' component={CreatePokemon}/>
     </div>
   );

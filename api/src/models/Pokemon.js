@@ -33,7 +33,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER
     },
     img:{
-      type: DataTypes.STRING
+      type: DataTypes.STRING(1234)
     }
   });
 };

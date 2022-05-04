@@ -1,7 +1,7 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
-import { postPokemon} from "../../redux/actions";
+import { postPokemon,getTypes} from "../../redux/actions";
 
 
 export default function CreatePokemon(){
@@ -77,6 +77,9 @@ export default function CreatePokemon(){
         history.push('/home');
     };
 
+    useEffect(() =>{
+        if(!pokemonsTypes.length) dispatch(getTypes());  
+    },[]) // eslint-disable-line 
 
     return(
         <form onSubmit={handleSubmit}>
@@ -135,7 +138,3 @@ export default function CreatePokemon(){
         </form>
     )
 }
-
-                /* <select name="types">
-                    {pokemonsTypes.map(el => <option key={el.id}value={el.name} name={el.name}>{el.name}</option>)}
-                </select> */

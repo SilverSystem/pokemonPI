@@ -1,4 +1,5 @@
 import React from "react";
+import s from './Pagination.module.css';
 import { Link } from "react-router-dom";
 // deberia recibir currentPage asi al mapear hacer un if de si pageNumber igual currentPage,
 // aniadirle un estilo para resaltar que estoy en tal page
@@ -10,7 +11,7 @@ export default function Pagination({pokemonsPerPage,totalPokemons,paginate}){
     }
 
     return (
-        <div>
+        <div className={s.container_pagination}>
             <ul>
                 {pageNumbers.map(pageNumber => <li key={pageNumber}> <Link to ='/home' onClick={() => paginate(pageNumber)}>{pageNumber}</Link> </li>)}
             </ul>

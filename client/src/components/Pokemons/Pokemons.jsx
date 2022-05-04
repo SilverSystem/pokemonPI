@@ -1,7 +1,8 @@
 import React,{useState, useEffect} from 'react';
+import s from './Pokemons.module.css'
 import { useSelector,useDispatch } from 'react-redux';
 import Pokemon from '../Pokemon/Pokemon';
-import { getPokemons } from '../../redux/actions';
+import { getPokemons,getTypes } from '../../redux/actions';
 import Pagination from '../Pagination/Pagination';
 
 export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrdered,attackOrdered}){
@@ -22,11 +23,12 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
     const indexOFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
 
     useEffect(() =>{
-     if(!filledState) dispatch(getPokemons());  
+     if(!filledState) dispatch(getPokemons());
+     if(!pokemonsTypes.length) dispatch(getTypes())  
     },[]) // eslint-disable-line 
 
     if(listCreatedPokemons){
-         return <div>
+         return <div className={s.container_created}>
                     {
                          createdPokemons.length ? createdPokemons.map(el => <Pokemon key={el.id}
                          id={el.id} img={el.img} name={el.name} types={el.types} attack={el.attack}/> ) 
@@ -44,26 +46,26 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
           })
      }     
      console.log(listedPokemons)
-         return <div>
-                    {
-                         listedPokemons.map((type,index) => (
-                              <div key={index}>
-                              {type.length ? <h4>{pokemonsTypes[index].name}</h4> : null}
+         return <div className={s.container_types}>
+                    { //name.charAt(0).toUpperCase() +name.slice(1)
+                         listedPokemons.length ? listedPokemons.map((type,index) => (
+                              <div key={index} className={s.container_type_ind}>
+                              {type.length ? <h4>{pokemonsTypes[index].name.charAt(0).toUpperCase() + pokemonsTypes[index].name.slice(1)}</h4> : null}
                               {
                                    type.length ? listedPokemons[index].map(p =>
                                         <Pokemon key={p.id} id={p.id} img={p.img} name={p.name} types={p.types} attack={p.attack}/>
                                    ) : null  
                               }
                               </div>
-                         ))
+                         )) : <div className={s.loading}> <div className={s.loader}></div> </div>
                     }
                </div>
     }
 
     if(searched){
           console.log(searchedPokemon)
-          return <div>
-                    { Object.keys(searchedPokemon).length? <Pokemon key={searchedPokemon.id} id={searchedPokemon.id} img={searchedPokemon.img} 
+          return <div className={s.container_searched}>
+                    { Object.keys(searchedPokemon).length ? <Pokemon key={searchedPokemon.id} id={searchedPokemon.id} img={searchedPokemon.img} 
                     name={searchedPokemon.name} types={searchedPokemon.types} attack={searchedPokemon.attack} quantity={1}/> : <h3>Buscando Pokemon...</h3> }
                  </div>
     }
@@ -78,10 +80,12 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
           const currentPokemons = nameOrderedPokemons.slice(indexOFirstPokemon,indexOfLastPokemon);
           return <div>
                     <Pagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons.length} paginate={paginate}/>
+                    <div className={s.container_paginated_pokemons}>
                     {
                        currentPokemons.map(el => <Pokemon key={el.id}
                          id={el.id} img={el.img} name={el.name} types={el.types} attack={el.attack}/>)  
                     }
+                    </div>
                  </div>
     } else if(nameOrdered === 'des'){
           const nameOrderedPokemons = pokemons.map(p => p);
@@ -93,32 +97,18 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
           const currentPokemons = nameOrderedPokemons.slice(indexOFirstPokemon,indexOfLastPokemon);
           return <div>
                     <Pagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons.length} paginate={paginate}/>
+                    <div className={s.container_paginated_pokemons}>
                     {
                        currentPokemons.map(el => <Pokemon key={el.id}
                          id={el.id} img={el.img} name={el.name} types={el.types} attack={el.attack}/>)  
                     }
+                    </div>
                  </div>
     }
 
     if(attackOrdered === 'asc'){
           const attackOrderedPokemons = new Array(...pokemons);
           console.log('Pepe',attackOrderedPokemons) 
-          attackOrderedPokemons.sort((a, b) => {
-               if (a.attack > b.attack) return -1;
-               if (a.attack < b.attack) return 1;
-               return 0;
-          });
-          const currentPokemons = attackOrderedPokemons.slice(indexOFirstPokemon,indexOfLastPokemon);
-          return <div>
-                    <Pagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons.length} paginate={paginate}/>
-                    {
-                       currentPokemons.map(el => <Pokemon key={el.id}
-                         id={el.id} img={el.img} name={el.name} types={el.types} attack={el.attack}/>)  
-                    }
-                 </div>
-    } else if(attackOrdered === 'des'){
-          const attackOrderedPokemons = new Array(...pokemons);
-          console.log(attackOrderedPokemons)
           attackOrderedPokemons.sort((a, b) => {
                if (a.attack > b.attack) return 1;
                if (a.attack < b.attack) return -1;
@@ -127,25 +117,48 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
           const currentPokemons = attackOrderedPokemons.slice(indexOFirstPokemon,indexOfLastPokemon);
           return <div>
                     <Pagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons.length} paginate={paginate}/>
+                    <div className={s.container_paginated_pokemons}>
                     {
                        currentPokemons.map(el => <Pokemon key={el.id}
                          id={el.id} img={el.img} name={el.name} types={el.types} attack={el.attack}/>)  
                     }
+                    </div>
+                 </div>
+    } else if(attackOrdered === 'des'){
+          const attackOrderedPokemons = new Array(...pokemons);
+          console.log(attackOrderedPokemons)
+          attackOrderedPokemons.sort((a, b) => {
+               if (a.attack > b.attack) return -1;
+               if (a.attack < b.attack) return 1;
+               return 0;
+          });
+          const currentPokemons = attackOrderedPokemons.slice(indexOFirstPokemon,indexOfLastPokemon);
+          return <div>
+                    <Pagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons.length} paginate={paginate}/>
+                    <div className={s.container_paginated_pokemons}>
+                    {
+                       currentPokemons.map(el => <Pokemon key={el.id}
+                         id={el.id} img={el.img} name={el.name} types={el.types} attack={el.attack}/>)  
+                    }
+                    </div>
                  </div>
     }
 
     const currentPokemons = pokemons.slice(indexOFirstPokemon,indexOfLastPokemon); 
     return <div>
+               {filledState && <Pagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons.length} paginate={paginate}/>}
+               <div className={s.container_paginated_pokemons}>
                 {console.log('Console inicial',pokemons)}
-                {filledState && <Pagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons.length} paginate={paginate}/>}
                {
                     filledState ? currentPokemons.map(el => <Pokemon key={el.id}
-                    id={el.id} img={el.img} name={el.name} types={el.types} attack={el.attack}/>)  : <h2>Cargando...</h2>
+                    id={el.id} img={el.img} name={el.name} types={el.types} attack={el.attack}/>)  
+                    : <div className={s.loading}> <div className={s.loader}></div> </div>
                }
-            </div>
+               </div>
+           </div>
 };
 
 
 // {filledState && !searched && <Pagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons.length} paginate={paginate}/>}
 //             {filledState ? <Pokemons listCreatedPokemons={createdClicked} listTypes={typesClicked} searched={searched}/> 
-//             : <h2>Cargando...</h2>}
+//             : <h2>Cargando...</h2>} 

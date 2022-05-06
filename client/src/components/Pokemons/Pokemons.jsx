@@ -4,15 +4,16 @@ import { useSelector,useDispatch } from 'react-redux';
 import Pokemon from '../Pokemon/Pokemon';
 import { getPokemons,getTypes } from '../../redux/actions';
 import Pagination from '../Pagination/Pagination';
+import SearchError from '../SearchError/SearchError';
 
 export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrdered,attackOrdered}){
      const pokemons = useSelector(state => state.pokemons);
      const createdPokemons = useSelector(state => state.createdPokemons);
      const pokemonsTypes = useSelector(state => state.pokemonsTypes);
-     const searchedPokemon = useSelector(state => state.pokemonDetail)
+     const searchedPokemon = useSelector(state => state.pokemonDetail);
+     const error = useSelector(state => state.error);
      const dispatch = useDispatch();
-
-     
+     const filledTypes = !!pokemonsTypes.length;
      const filledState = !!pokemons.length;
 
      const [currentPage,setCurrentPage] = useState(1);
@@ -24,7 +25,7 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
 
     useEffect(() =>{
      if(!filledState) dispatch(getPokemons());
-     if(!pokemonsTypes.length) dispatch(getTypes())  
+     if(!filledTypes) dispatch(getTypes()); 
     },[]) // eslint-disable-line 
 
     if(listCreatedPokemons){
@@ -45,9 +46,8 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
                if (p.types.includes(pokemonsTypes[i].name)) listedPokemons[i].push(p); 
           })
      }     
-     console.log(listedPokemons)
          return <div className={s.container_types}>
-                    { //name.charAt(0).toUpperCase() +name.slice(1)
+                    {
                          listedPokemons.length ? listedPokemons.map((type,index) => (
                               <div key={index} className={s.container_type_ind}>
                               {type.length ? <h4>{pokemonsTypes[index].name.charAt(0).toUpperCase() + pokemonsTypes[index].name.slice(1)}</h4> : null}
@@ -65,8 +65,9 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
     if(searched){
           console.log(searchedPokemon)
           return <div className={s.container_searched}>
-                    { Object.keys(searchedPokemon).length ? <Pokemon key={searchedPokemon.id} id={searchedPokemon.id} img={searchedPokemon.img} 
-                    name={searchedPokemon.name} types={searchedPokemon.types} attack={searchedPokemon.attack} quantity={1}/> : <h3>Buscando Pokemon...</h3> }
+                    { error.hasError ? <SearchError/> : Object.keys(searchedPokemon).length ? <Pokemon key={searchedPokemon.id} id={searchedPokemon.id} img={searchedPokemon.img} 
+                    name={searchedPokemon.name} types={searchedPokemon.types} attack={searchedPokemon.attack} quantity={1}/> : 
+                    <div className={s.loading}> <div className={s.loader}></div> </div> }
                  </div>
     }
     

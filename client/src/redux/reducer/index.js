@@ -1,10 +1,11 @@
-import { GET_POKEMONS,GET_POKEMON_DETAILS,CLEAR_DETAILS,POST_POKEMON, GET_TYPES,GET_POKEMON_NAME,} from "../actions/actionTypes";
+import { GET_POKEMONS,GET_POKEMON_DETAILS,CLEAR_DETAILS,POST_POKEMON, GET_TYPES,GET_POKEMON_NAME,SHOW_ERROR} from "../actions/actionTypes";
 
 const initialState ={
     pokemons: [],
     createdPokemons:[],
     pokemonsTypes:[],
     pokemonDetail:{},
+    error:{hasError: false}
 }
 export default function reducer(state= initialState,action){
     switch(action.type){
@@ -24,7 +25,8 @@ export default function reducer(state= initialState,action){
         case CLEAR_DETAILS:
             return{
                 ...state,
-                pokemonDetail: {}
+                pokemonDetail: {},
+                error: {hasError:false}
             }
         
         case POST_POKEMON:
@@ -38,7 +40,13 @@ export default function reducer(state= initialState,action){
             return{
                 ...state,
                 pokemonsTypes: [...state.pokemonsTypes,...action.payload]
-            }  
+            }
+            
+        case SHOW_ERROR:
+            return{
+                ...state,
+                error: {hasError:true,errorDetails:action.payload}
+            }
         
         default: return state;
     }

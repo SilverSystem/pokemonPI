@@ -18,18 +18,16 @@ router.get('/pokemons',async (req,res,next) =>{
         const {name} = req.query;
 
         if(name) return res.json(await getPokemonByName(name));
-        
-        const allData = (await axios.get('https://pokeapi.co/api/v2/pokemon')).data;
 
-        let pokemons = allData.results.map(el => axios.get(el.url));
-        let pokemonsData = await Promise.all(pokemons);
-
-        pokemonsData = pokemonsData.map(el => {
-            let {id,name,types,sprites,stats} = el.data;
+         const pokemonsData = [];
+        for (let i = 1; i <= 40; i++) {
+            const pokemon = (await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)).data;
+            let {id,name,types,sprites,stats} = pokemon;
             types = types.map(el => el.type.name);
             const attack = stats[1].base_stat;
-            return{id,name,types,img:sprites.other['official-artwork'].front_default,attack}
-        });
+            pokemonsData.push({id,name,types,img:sprites.other['official-artwork'].front_default,attack})
+        }
+        
         const dbPokemons = await Pokemon.findAll({ 
             attributes:['id','name','img','attack'],
             // include: Type,
@@ -38,8 +36,6 @@ router.get('/pokemons',async (req,res,next) =>{
                 through: { attributes: [] }
               }]
         });
-        //console.log('Pokemons de la DB')
-        //dbPokemons.forEach(e => console.log(e.toJSON()));
         let fixeDbPokemons = [];
         dbPokemons.forEach(el =>{ 
             const {id,name,img,attack} = el

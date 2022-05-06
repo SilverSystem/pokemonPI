@@ -1,4 +1,4 @@
-import { GET_POKEMONS,GET_POKEMON_DETAILS,CLEAR_DETAILS, POST_POKEMON,GET_TYPES,GET_POKEMON_NAME} from "./actionTypes";
+import { GET_POKEMONS,GET_POKEMON_DETAILS,CLEAR_DETAILS, POST_POKEMON,GET_TYPES,GET_POKEMON_NAME,SHOW_ERROR} from "./actionTypes";
 import axios from 'axios';
 
 export function getPokemons(){
@@ -9,6 +9,7 @@ export function getPokemons(){
         } catch (error) {
             console.log('Error en action creator getPokemons');
             console.log(error);
+            dispatch({type: SHOW_ERROR,payload:error}); 
         }
     }
 };
@@ -21,6 +22,7 @@ export function getDetails(id){
         } catch (error) {
             console.log('Error en action creator getDetails');
             console.log(error);
+            dispatch({type: SHOW_ERROR,payload:error});
         }
     }
 };
@@ -37,6 +39,7 @@ export function postPokemon (pokemon){
         } catch (error) {
             console.log('Error en action creator postPokemon');
             console.log(error);
+            dispatch({type: SHOW_ERROR,payload:error});
         }
     };
 } 
@@ -49,6 +52,7 @@ export function getTypes(){
         } catch (error) {
             console.log('Error en action creator getTypes');
             console.log(error);
+            dispatch({type: SHOW_ERROR,payload:error});
         }
     }
 };
@@ -61,6 +65,8 @@ export function getByName(name){
         } catch (error) {
             console.log('Error en action creator getByName');
             console.log(error);
+            console.log(typeof error)
+            dispatch({type: SHOW_ERROR,payload:error});
         }
     }
 }

@@ -46,9 +46,19 @@
     justify-content: center;
 }
 
+.container_created{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 400px);
+    padding-top: 7rem;
+    grid-gap: 2rem;
+    margin: 2rem;
+    align-content: center;
+    justify-content: center;
+}
 
-
-
+.container_created  h3{
+     font-size: 1.8rem;
+ }
 
 .loading{
     background: rgba(255, 255, 255, 0.35);

@@ -46,8 +46,7 @@ button {
     z-index: 3;
     pointer-events: none;
     top:calc(100% + .5rem);
-    background-color: blue;
-    box-shadow: 0 2px 15px 0 rgba(0,0,0,.3);
+    /* box-shadow: 0 2px 15px 0 rgba(0,0,0,.3); */
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
@@ -64,18 +63,3 @@ button {
 .btn_action:active{
     pointer-events: auto;
 }
-
-/* .dropdown_menu{
-    display: none;
-    
-}
-
-.container_list:hover .dropdown_menu{
-    display: grid;
-    position: absolute;
-    background-color: blue;
-
-}
-.container_list:hover .dropdown_menu ul{
-    display: grid;
-} */

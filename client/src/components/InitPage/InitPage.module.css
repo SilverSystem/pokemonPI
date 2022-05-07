@@ -23,6 +23,16 @@
     outline-offset: 4px;
     transition: filter 250ms;
   }
+
+  @media screen and (max-width: 1300px){
+    .pushable_btn {
+      
+      bottom: 20%;
+      left: 30%;
+    }
+
+
+  }
   .shadow_btn {
     position: absolute;
     top: 0;

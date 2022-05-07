@@ -12,7 +12,8 @@ export default function reducer(state= initialState,action){
         case GET_POKEMONS:
             return {
                 ...state,
-                pokemons: [...action.payload]
+                pokemons: [...action.payload],
+                createdPokemons: action.payload.filter(el => /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(el.id))
             }
 
         case GET_POKEMON_DETAILS:

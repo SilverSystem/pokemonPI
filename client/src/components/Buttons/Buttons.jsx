@@ -12,7 +12,7 @@ export default function Buttons({handleCreatedClicked,handleTypesClicked,handleN
         handleSearched('');
     };
     return (
-        <div  className={s.container_buttons}>
+        <div className={s.container_buttons}>
                 <div className={s.dropdown}>
                     <button className={s.link}> Ordenar por Nombre </button>
                     <div className={s.dropdown_menu}>

@@ -1,0 +1,92 @@
+/*.container_created, .container_types, .container_searched, s.container_name_asc, s.container_name_des,
+.container_atck_asc, .container_atck_des, .container_api, .loading*/
+
+
+.container_paginated_pokemons{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 2rem;
+    margin: 2rem;
+}
+
+/* .container_types{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 2rem;
+    margin: 2rem;
+} */
+
+.container_type_ind{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 2rem;
+    margin: 2rem;
+}
+
+
+.container_type_ind h4{
+    grid-column: span 3;
+    justify-self: center;
+    font-size: 2.3rem;
+}
+@media screen and (min-width: 1600px){
+    .container_type_ind h4{ 
+        grid-column: span 4;
+    }
+}
+
+
+.container_searched{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 400px);
+    padding-top: 7rem;
+    grid-gap: 2rem;
+    margin: 2rem;
+    align-content: center;
+    justify-content: center;
+}
+
+.container_created{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 400px);
+    padding-top: 7rem;
+    grid-gap: 2rem;
+    margin: 2rem;
+    align-content: center;
+    justify-content: center;
+}
+
+.container_created  h3{
+     font-size: 1.8rem;
+ }
+
+.loading{
+    background: rgba(255, 255, 255, 0.35);
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    width: 100px;
+    height: 100px;
+    border: 11px #f21b1b double;
+    border-left-style: solid;
+    border-radius: 50%;
+    animation: loader_spin 0.75s infinite linear;
+   }
+   
+   @keyframes loader_spin {
+    to {
+     transform: rotate(360deg);
+    }
+   }
+   

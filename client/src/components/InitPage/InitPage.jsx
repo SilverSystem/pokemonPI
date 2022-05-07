@@ -1,16 +1,15 @@
 import React from 'react';
+import s from './InitPage.module.css'
 import { Link } from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import { getPokemons } from '../../redux/actions';
 
 export default function InitPage(){
-    const dispatch = useDispatch();
-    const handleClick = () =>{
-        dispatch(getPokemons());
-    };
     return (
-        <div>
-            <Link to='/home'><button onClick={handleClick}>Ingresa a la Pokedex</button></Link>
+        <div className={s.intro}>
+            <button className={s.pushable_btn}>
+                <span className={s.shadow_btn}></span>
+                <span className={s.edge_btn}></span>
+                <Link to='/home'  className={s.front_btn}>Ingresa a la Pokedex</Link> 
+            </button>   
         </div>
     )
 };

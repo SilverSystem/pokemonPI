@@ -1,6 +1,7 @@
 const { default: axios } = require('axios');
 const { Router } = require('express');
 const {Pokemon, Type} = require('../db');
+const {getPokemonByName} = require('../utils')
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -15,74 +16,38 @@ const router = Router();
 router.get('/pokemons',async (req,res,next) =>{
     try {
         const {name} = req.query;
-        if(name){
-            const filteredPokemon = await Pokemon.findOne({ 
-                where:{ name },
-                include: Type 
-            });
-            if(!filteredPokemon){
-                let pokemon = (await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)).data;
-                if(!pokemon) res.status(404).send('No existe ningun Pokemon con ese nombre');
 
-                let {name,types,sprites,stats,weight,height} = pokemon;
-                types = types.map(el => el.type.name);
-                const health = stats[0].base_stat;
-                const attack = stats[1].base_stat;
-                const defense = stats[2].base_stat;
-                const speed = stats[5].base_stat; 
-                pokemon = {
-                    name,
-                    types,
-                    img:sprites.other['official-artwork'].front_default,
-                    health,
-                    attack,
-                    defense,
-                    speed,
-                    weight,
-                    height
-                }
-                return res.json(pokemon);
-            }
-            return res.json(filteredPokemon);
-        }
-        const allData = (await axios.get('https://pokeapi.co/api/v2/pokemon')).data;
+        if(name) return res.json(await getPokemonByName(name));
 
-        let pokemons = allData.results.map(el => axios.get(el.url));
-        let pokemonsData = await Promise.all(pokemons);
-
-        pokemonsData = pokemonsData.map(el => {
-            let {id,name,types,sprites} = el.data;
+         const pokemonsData = [];
+        for (let i = 1; i <= 40; i++) {
+            const pokemon = (await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)).data;
+            let {id,name,types,sprites,stats} = pokemon;
             types = types.map(el => el.type.name);
-            return{id,name,types,img:sprites.other['official-artwork'].front_default}
-        });
-        const dbPokemons = await Pokemon.findAll({
-            attributes:['id','name','img'],
+            const attack = stats[1].base_stat;
+            pokemonsData.push({id,name,types,img:sprites.other['official-artwork'].front_default,attack})
+        }
+        
+        const dbPokemons = await Pokemon.findAll({ 
+            attributes:['id','name','img','attack'],
             // include: Type,
             include: [{
                 model: Type,
                 through: { attributes: [] }
               }]
         });
-        //console.log('Pokemons de la DB')
-        //dbPokemons.forEach(e => console.log(e.toJSON()));
-        res.json([...dbPokemons,...pokemonsData]);
+        let fixeDbPokemons = [];
+        dbPokemons.forEach(el =>{ 
+            const {id,name,img,attack} = el
+            const types = el.Types.map(t => t.name);
+            fixeDbPokemons.push({id,name,img,attack,types})
+            })
+        res.json([...fixeDbPokemons,...pokemonsData]);
     } catch (error) { 
         console.log(error); 
         next(error)  
     }
 });
-
-// router.get('/pokemons',async (req,res,next) =>{
-//     try {
-//         const {name} = req.query;
-//         const pokemon = (await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)).data;
-//         //if(!pokemon) throw new Error('No existe ningun pokemon con ese nombre');
-//         res.json(pokemon);
-//     } catch (error) {
-//         console.log(error);
-//         next(error)
-//     }    
-// });
 
 router.get('/pokemons/:idPokemon',async (req,res,next) =>{
 
@@ -97,7 +62,8 @@ router.get('/pokemons/:idPokemon',async (req,res,next) =>{
                   }]
               });
             if(!pokemonsito) res.status(404).send("No existe ningun Pokemon con ese id")
-            return res.json(pokemonsito);
+            const types = pokemonsito.Types.map(el => el.name);
+            return res.json({...pokemonsito.dataValues,types});
         }
         const pokemon = (await axios.get(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)).data;
         let {name,types,stats,sprites,weight,height} = pokemon;
@@ -146,6 +112,18 @@ router.get('/types',async (req,res,next) =>{
         next(error)
     }    
 });
+
+router.get('/tipos', async (req,res,next) =>{
+    try {
+        const pokemonsTypes = await Type.findAll({
+            attributes:['id','name']
+        });
+        res.json(pokemonsTypes);
+    } catch (error) {
+        console.log(error);
+        next(error)
+    }
+})
 
 
 module.exports = router;

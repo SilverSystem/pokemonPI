@@ -4,7 +4,7 @@ import axios from 'axios';
 export function getPokemons(){
     return async dispatch =>{
         try {
-            const pokemons = (await axios.get('http://localhost:3001/pokemons')).data;
+            const pokemons = (await axios.get('/pokemons')).data;
             dispatch({type: GET_POKEMONS,payload: pokemons})   
         } catch (error) {
             console.log('Error en action creator getPokemons');
@@ -17,7 +17,7 @@ export function getPokemons(){
 export function getDetails(id){
     return async dispatch =>{
         try {
-            const pokemon = (await axios.get(`http://localhost:3001/pokemons/${id}`)).data;
+            const pokemon = (await axios.get(`/pokemons/${id}`)).data;
             dispatch({type: GET_POKEMON_DETAILS,payload: pokemon})   
         } catch (error) {
             console.log('Error en action creator getDetails');
@@ -34,7 +34,7 @@ export function clearDetails(){
 export function postPokemon (pokemon){
     return async dispatch =>{
         try {
-            const pokemonWithId = (await axios.post('http://localhost:3001/pokemons',pokemon)).data;
+            const pokemonWithId = (await axios.post('/pokemons',pokemon)).data;
             dispatch({type: POST_POKEMON,payload:pokemonWithId})
         } catch (error) {
             console.log('Error en action creator postPokemon');
@@ -47,7 +47,7 @@ export function postPokemon (pokemon){
 export function getTypes(){
     return async dispatch =>{
         try {
-            const pokemonsTypes = (await axios.get('http://localhost:3001/tipos')).data;
+            const pokemonsTypes = (await axios.get('/tipos')).data;
             dispatch({type: GET_TYPES, payload: pokemonsTypes})
         } catch (error) {
             console.log('Error en action creator getTypes');
@@ -60,7 +60,7 @@ export function getTypes(){
 export function getByName(name){
     return async dispatch =>{
         try {
-            const pokemon = (await axios.get(`http://localhost:3001/pokemons?name=${name}`)).data;
+            const pokemon = (await axios.get(`/pokemons?name=${name}`)).data;
             dispatch({type: GET_POKEMON_NAME,payload:pokemon});
         } catch (error) {
             console.log('Error en action creator getByName');

@@ -82,9 +82,14 @@ export default function CreatePokemon(){
 
     const handleSubmit= (e) => {
         e.preventDefault();
+        if(shoulDisabled){
+            setError('Todos los campos deben completarse correctamente para enviar el formulario');
+        } else{
+            dispatch(postPokemon({...formDetails,name:formDetails.name.toLowerCase()}));
+            history.push('/home');
+        }
         console.log(formDetails);
-        dispatch(postPokemon({...formDetails,name:formDetails.name.toLowerCase()}));
-        history.push('/home');
+        
     };
 
     useEffect(() =>{
@@ -145,6 +150,7 @@ export default function CreatePokemon(){
                 {error.includes('weight') ? <span className={s.error_span}>{error}</span> : null}
             </div>
             <div className={s.div_submit}><button type="submit" disabled={!!error || shoulDisabled}> Crear Pokemon</button></div>
+            {error.includes('campos') ? <span className={s.error_span}>{error}</span> : null}
         </form>
         </div>
     )

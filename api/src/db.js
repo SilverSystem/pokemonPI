@@ -21,9 +21,9 @@ let sequelize=
           username: DB_USER,                  
           password: DB_PASSWORD,
           pool:{
-             max: 3,
+            max: 3,
             min: 1,
-             idle: 10000,
+            idle: 10000,
           },
           dialectOptions: {
              ssl:{

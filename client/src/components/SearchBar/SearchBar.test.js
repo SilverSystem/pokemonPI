@@ -11,7 +11,7 @@ describe('<SearchBar />',() =>{
     it('Clicking the search button calls event handler',() =>{
         const mockHandler = jest.fn();
         const component = render(<Provider store={store}><SearchBar handleSearched ={mockHandler}/></Provider>)
-        const button = component.getByDisplayValue('Buscar');
+        const button = component.getByDisplayValue('Search');
         fireEvent.click(button);
         expect(mockHandler).toHaveBeenCalledTimes(1);
     })

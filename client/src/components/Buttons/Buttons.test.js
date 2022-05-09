@@ -6,12 +6,12 @@ import Buttons from "./Buttons";
 
 describe('<Buttons />',() =>{
 
-    it('Clicking the filter Name "Ascendentemente" calls the event handler',()=>{
+    it('Clicking the Name filter "Ascending Order" calls the event handler',()=>{
         const mockHandlerName = jest.fn();
 
         const component = render(<Buttons handleCreatedClicked={() =>{}} handleTypesClicked={() =>{}} 
             handleNameOrdered={mockHandlerName} handleAttackOrdered={() =>{}} handleSearched={() =>{}}/>)
-        const ascButtons = component.getAllByText('Ascendentemente');
+        const ascButtons = component.getAllByText('Ascending Order');
 
         expect(ascButtons).toHaveLength(2)
 
@@ -23,12 +23,12 @@ describe('<Buttons />',() =>{
     
     })
 
-    it('Clicking the filter Attack "Ascendentemente" calls the event handler',()=>{
+    it('Clicking the Attack filter "Ascending Order" calls the event handler',()=>{
         const mockHandlerAttack = jest.fn();
 
         const component = render(<Buttons handleCreatedClicked={() =>{}} handleTypesClicked={() =>{}} 
             handleNameOrdered={() => {}} handleAttackOrdered={mockHandlerAttack} handleSearched={() =>{}}/>)
-        const ascButtons = component.getAllByText('Ascendentemente');
+        const ascButtons = component.getAllByText('Ascending Order');
 
         expect(ascButtons).toHaveLength(2)
 
@@ -40,12 +40,12 @@ describe('<Buttons />',() =>{
     
     })
 
-    it('Clicking the filter Name "Descendentemente" calls the event handler',()=>{
+    it('Clicking the Name filter "Descending Order" calls the event handler',()=>{
         const mockHandlerName = jest.fn();
     
         const component = render(<Buttons handleCreatedClicked={() =>{}} handleTypesClicked={() =>{}} 
             handleNameOrdered={mockHandlerName} handleAttackOrdered={() =>{}} handleSearched={() =>{}}/>)
-        const desButtons = component.getAllByText('Descendentemente');
+        const desButtons = component.getAllByText('Descending Order');
 
         expect(desButtons).toHaveLength(2)
 
@@ -57,12 +57,12 @@ describe('<Buttons />',() =>{
     
     })
     
-    it('Clicking the filter Attack "Descendentemente" calls the event handler',()=>{
+    it('Clicking the Attack filter "Descending Order" calls the event handler',()=>{
         const mockHandlerAttack = jest.fn();
         
         const component = render(<Buttons handleCreatedClicked={() =>{}} handleTypesClicked={() =>{}} 
             handleNameOrdered={() => {}} handleAttackOrdered={mockHandlerAttack} handleSearched={() =>{}}/>)
-        const desButtons = component.getAllByText('Descendentemente');
+        const desButtons = component.getAllByText('Descending Order');
 
         expect(desButtons).toHaveLength(2)
 
@@ -74,12 +74,12 @@ describe('<Buttons />',() =>{
     
     })
     
-    it('Clicking the filter "Filtrar por Tipo" calls the event handler',()=>{
+    it('Clicking the "Filter by Type" filter calls the event handler',()=>{
         const mockHandlerTypes = jest.fn();
         
         const component = render(<Buttons handleCreatedClicked={() =>{}} handleTypesClicked={mockHandlerTypes} 
             handleNameOrdered={() => {}} handleAttackOrdered={() => {}} handleSearched={() =>{}}/>)
-        const typesButton = component.getByText('Filtrar por Tipo');
+        const typesButton = component.getByText('Filter by Type');
 
         fireEvent.click(typesButton);
 
@@ -88,12 +88,12 @@ describe('<Buttons />',() =>{
     
     })
     
-    it('Clicking the filter "Mostrar solo los Pokemons Creados" calls the event handler',()=>{
+    it('Clicking the "Only show created Pokemons" filter calls the event handler',()=>{
         const mockHandlerCreated = jest.fn();
         
         const component = render(<Buttons handleCreatedClicked={mockHandlerCreated} handleTypesClicked={() => {}} 
             handleNameOrdered={() => {}} handleAttackOrdered={() => {}} handleSearched={() =>{}}/>)
-        const createdButton = component.getByText('Mostrar solo los Pokemons Creados')
+        const createdButton = component.getByText('Only show created Pokemons')
 
         fireEvent.click(createdButton);
 

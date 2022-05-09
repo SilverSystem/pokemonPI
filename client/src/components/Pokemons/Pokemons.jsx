@@ -33,7 +33,7 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
                     {
                          createdPokemons.length ? createdPokemons.map(el => <Pokemon key={el.id}
                          id={el.id} img={el.img} name={el.name} types={el.types} attack={el.attack}/> ) 
-                         : <h3>No hay pokemones creados</h3>
+                         : <h3>There are no created Pokemons</h3>
                     }
                </div>
     }
@@ -63,7 +63,6 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
     }
 
     if(searched){
-          console.log(searchedPokemon)
           return <div className={s.container_searched}>
                     { error.hasError ? <SearchError/> : Object.keys(searchedPokemon).length ? <Pokemon key={searchedPokemon.id} id={searchedPokemon.id} img={searchedPokemon.img} 
                     name={searchedPokemon.name} types={searchedPokemon.types} attack={searchedPokemon.attack} quantity={1}/> : 
@@ -109,7 +108,6 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
 
     if(attackOrdered === 'asc'){
           const attackOrderedPokemons = new Array(...pokemons);
-          console.log('Pepe',attackOrderedPokemons) 
           attackOrderedPokemons.sort((a, b) => {
                if (a.attack > b.attack) return 1;
                if (a.attack < b.attack) return -1;
@@ -127,7 +125,6 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
                  </div>
     } else if(attackOrdered === 'des'){
           const attackOrderedPokemons = new Array(...pokemons);
-          console.log(attackOrderedPokemons)
           attackOrderedPokemons.sort((a, b) => {
                if (a.attack > b.attack) return -1;
                if (a.attack < b.attack) return 1;
@@ -149,17 +146,11 @@ export default function Pokemons({listCreatedPokemons,listTypes,searched,nameOrd
     return <div>
                {filledState && <Pagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons.length} paginate={paginate}/>}
                <div className={s.container_paginated_pokemons}>
-                {console.log('Console inicial',pokemons)}
                {
                     filledState ? currentPokemons.map(el => <Pokemon key={el.id}
                     id={el.id} img={el.img} name={el.name} types={el.types} attack={el.attack}/>)  
-                    : <div className={s.loading}> <div className={s.loader}></div> </div>
+                     : <div className={s.loading}> <div className={s.loader}></div> </div>
                }
                </div>
            </div>
 };
-
-
-// {filledState && !searched && <Pagination pokemonsPerPage={pokemonsPerPage} totalPokemons={pokemons.length} paginate={paginate}/>}
-//             {filledState ? <Pokemons listCreatedPokemons={createdClicked} listTypes={typesClicked} searched={searched}/> 
-//             : <h2>Cargando...</h2>} 

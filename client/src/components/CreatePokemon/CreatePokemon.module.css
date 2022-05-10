@@ -5,7 +5,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: url('https://images.alphacoders.com/998/thumb-1920-998181.jpg') no-repeat;
+    background-image: var(--bg-blur),url('https://images.alphacoders.com/998/thumb-1920-998181.jpg');
     background-size: cover;
 }
 
@@ -17,7 +17,7 @@
     grid-template-rows: repeat(3,minmax(80px,1fr));
     justify-items: center;
     align-items: center;
-    background: rgb(236, 236, 236);
+    background: var(--bg-color);
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     transition: border-radius cubic-bezier(0.075, 0.82, 0.165, 1) 1s,
                   transform cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
@@ -97,7 +97,7 @@
     padding: .5rem 0;
     outline: none;
     background-color: transparent;
-    color: #0d0c22;
+    color: var(--color);
     transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
    }
    
@@ -109,7 +109,7 @@
    }
    
    .input::placeholder {
-    color: black;
+    color: var(--color);
    }
    
    .input:focus::placeholder {
@@ -205,4 +205,33 @@
         transform: translateX(4px);
     }
 
+}
+
+@media screen and (max-width: 600px){
+    .create_form{
+        width: 300px;
+        height: 400px;
+        
+    }
+
+    .create_form .name_img, .create_form .types, .create_form .stats_container{
+        width: 100%;
+    }
+
+    .types{
+        grid-template-columns: repeat(auto-fit,minmax(20px,1fr));
+    }
+
+    .input{
+        font-size: 1rem;
+    }
+
+    .grid_label,.stats_label{
+        font-size: 1.2rem;
+    }
+
+    .checkmark {
+        height: 1em;
+        width: 1em;
+    }
 }

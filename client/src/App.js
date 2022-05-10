@@ -11,7 +11,7 @@ function App() {
     <div className={s.global_container}>
       <Route exact path='/'> <InitPage/> </Route>
       <Route path='/home' component={Home}/> 
-      <Route exact path='/pokemons/:idPokemon' component={PokemonDetail}/>
+      <Route path='/pokemons/:idPokemon' component={PokemonDetail}/>
       <Route path='/createPokemon' component={CreatePokemon}/>
     </div>
   );

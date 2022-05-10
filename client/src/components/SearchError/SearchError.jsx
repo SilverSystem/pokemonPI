@@ -13,9 +13,9 @@ export default function SearchError(){
     return (
         <div className={s.error_container}>
             <div className={s.error_details}>
-                <h2>Error no existes ningun Pokemon con ese Nombre</h2>
+                <h2>Error there is no Pokemon with that name</h2>
                 <h3>{error.errorDetails.message}</h3>
-                <a href="/home"><button>Regresar al Home</button></a>
+                <a href="/home"><button>Back to Home</button></a>
             </div>
         </div>
     )

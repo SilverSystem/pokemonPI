@@ -27,7 +27,7 @@ export default function SearchBar({handleSearched}){
               onChange={handleChange}
               className={s.input}
             />
-            <input type="submit" value="Buscar" className={s.input_btn}/>
+            <input type="submit" value="Search" className={s.input_btn}/>
          </form>
     )
 };

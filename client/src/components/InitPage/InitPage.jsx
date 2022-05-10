@@ -8,7 +8,7 @@ export default function InitPage(){
             <button className={s.pushable_btn}>
                 <span className={s.shadow_btn}></span>
                 <span className={s.edge_btn}></span>
-                <Link to='/home'  className={s.front_btn}>Ingresa a la Pokedex</Link> 
+                <Link to='/home'  className={s.front_btn}>Enter to the Pokedex</Link> 
             </button>   
         </div>
     )

@@ -121,3 +121,34 @@ h1{
      background: #303136;
      box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -5px 0 0 #a3dafb;
     }
+
+
+@media screen and (max-width: 600px) {
+    nav{
+        display: grid;
+        grid-template-columns: repeat(2,minmax(50%,1fr));
+        grid-template-rows: repeat(3,100px);
+        grid-template-areas: 
+        "title      create"
+        "search_bar search_bar"
+        "switch     switch";
+        align-items: center;
+        justify-items: center;
+    }  
+
+    nav h1{
+        grid-area: title;
+    }
+
+    nav .link{
+        grid-area: create;
+    }
+
+    nav form{
+        grid-area: search_bar;
+    }
+
+    nav .theme_switch_wrapper{
+        grid-area: switch;
+    }
+}

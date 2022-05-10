@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from "react";
 import s from './CreatePokemon.module.css';
+import searchName from "./helpers";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import { postPokemon,getTypes} from "../../redux/actions";
@@ -20,6 +21,7 @@ export default function CreatePokemon(){
     });
     const dispatch = useDispatch();
     const pokemonsTypes = useSelector(state => state.pokemonsTypes);
+    const pokemons = useSelector(state => state.pokemons);
     const history = useHistory();
     const shoulDisabled = !(formDetails.name && formDetails.img && formDetails.health && formDetails.attack && formDetails.defense && formDetails.speed && formDetails.height && formDetails.weight && formDetails.types.length);
 
@@ -85,8 +87,12 @@ export default function CreatePokemon(){
         if(!!error || shoulDisabled){ 
             setError('All fields must be completed correctly to send the form');
         } else{
-            dispatch(postPokemon({...formDetails,name:formDetails.name.toLowerCase()}));
-            history.push('/home');
+            if(searchName(pokemons,formDetails.name.toLowerCase())){
+                setError('That pokemon name already exists, please change the name');
+            } else{
+                dispatch(postPokemon({...formDetails,name:formDetails.name.toLowerCase()}));
+                history.push('/home');
+            }
         }    
     };
 
@@ -96,8 +102,6 @@ export default function CreatePokemon(){
 
     return(
         <div className={s.container_create}>
-            {console.log('Historial...')}
-            {console.log(history)}
             <Link to='/home'> <button>Back to Home</button> </Link>
             <form onSubmit={handleSubmit} className={s.create_form}>
             <div className={s.name_img}>

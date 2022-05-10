@@ -1,6 +1,7 @@
 .intro{
     background: url("https://phantom-marca.unidadeditorial.es/2a6bb9293b020d388e4c1b1d3e640f1a/resize/1320/f/jpg/assets/multimedia/imagenes/2021/02/28/16145196328904.jpg") no-repeat top/80%;
     /* background-size: cover; */
+    background-color: white;
     height: 100%;
     width: 100%;
     position: absolute;
@@ -107,3 +108,19 @@
   .pushable_btn:focus:not(:focus-visible) {
     outline: none;
   }
+
+  @media screen and (max-width: 850px) {
+      .intro{
+        background: url("https://phantom-marca.unidadeditorial.es/2a6bb9293b020d388e4c1b1d3e640f1a/resize/1320/f/jpg/assets/multimedia/imagenes/2021/02/28/16145196328904.jpg") no-repeat center/80%;
+        background-size: contain;
+      }
+  }
+
+  @media screen and (max-width: 500px) {
+
+
+    .pushable_btn{
+      bottom: 10%;
+      left: 0%;
+    }
+}

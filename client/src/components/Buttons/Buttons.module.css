@@ -42,6 +42,8 @@ button {
 
 .dropdown_menu{
     position: absolute;
+    display: flex;
+    flex-direction: column;
     left: 0;
     z-index: 3;
     pointer-events: none;
@@ -62,4 +64,40 @@ button {
 
 .btn_action:active{
     pointer-events: auto;
+}
+
+@media screen and (max-width: 600px){
+    .container_buttons{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2,minmax(40px,1fr));
+        grid-template-rows: repeat(3,minmax(40px,1fr));
+        grid-template-areas: 
+        "name     attack"
+        "created  type"
+        "clear    clear";
+        justify-items: center;
+        align-items: center;
+    }
+
+    .name{
+        grid-area: name;
+    }
+
+    .attack{
+        grid-area: attack;
+    }
+
+    .created{
+        grid-area: created;
+    }
+
+    .type{
+        grid-area: type;
+    }
+
+    .clear{
+        grid-area: clear;
+        justify-self: center;
+    }
 }

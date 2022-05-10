@@ -5,7 +5,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: url('https://images.alphacoders.com/998/thumb-1920-998181.jpg') no-repeat;
+    background-image: var(--bg-blur),url('https://images.alphacoders.com/998/thumb-1920-998181.jpg');
     background-size: cover;
 }
 
@@ -205,4 +205,33 @@
         transform: translateX(4px);
     }
 
+}
+
+@media screen and (max-width: 600px){
+    .create_form{
+        width: 300px;
+        height: 400px;
+        
+    }
+
+    .create_form .name_img, .create_form .types, .create_form .stats_container{
+        width: 100%;
+    }
+
+    .types{
+        grid-template-columns: repeat(auto-fit,minmax(20px,1fr));
+    }
+
+    .input{
+        font-size: 1rem;
+    }
+
+    .grid_label,.stats_label{
+        font-size: 1.2rem;
+    }
+
+    .checkmark {
+        height: 1em;
+        width: 1em;
+    }
 }

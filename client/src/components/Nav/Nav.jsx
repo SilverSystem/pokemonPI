@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 
 export default function Nav({handleSearched}){
-        //const [toggleSwitch,setToggleSwitch] = useState('false');
-        //const toggleSwitch = document.querySelector('input[type="checkbox"]')
-        //console.log(toggleSwitch)
             const getCurrentTheme = () => {
                 const currentTheme = localStorage.getItem("theme");
                 if(currentTheme){

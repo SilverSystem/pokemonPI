@@ -4,7 +4,7 @@ const {Pokemon,Type} = require('../db.js');
 
 const feedDb = async () =>{
    let types = (await axios.get('http://localhost:3001/types')).data;
-   types = types.map(el => { return { name:el } });
+   types = types.map((el,index) => { return { name:el,id:index } });
    await Type.bulkCreate(types);
 };
 

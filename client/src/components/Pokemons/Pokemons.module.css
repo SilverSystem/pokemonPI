@@ -6,22 +6,34 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-gap: 2rem;
-    margin: 2rem;
+    padding: 2rem;
+    background-image: var(--bg-blur),url('https://www.desktopbackground.org/download/3840x2160/2011/12/04/307118_all-pokemon-wallpapers-hd_3888x2459_h.jpg');
+    background-size: cover;
 }
 
-/* .container_types{
+.container_types{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 2rem;
+    padding: 7rem 2rem 2rem 2rem;
+    background-image: var(--bg-blur),url('https://www.desktopbackground.org/download/3840x2160/2011/12/04/307118_all-pokemon-wallpapers-hd_3888x2459_h.jpg');
+    background-size: cover;
+    align-content: center;
+    justify-content: center;
+}
+
+.container_types h3{
+    font-size: 2.2rem;
+    align-self: center;
+    justify-self: center;
+}
+
+/* .container_type_ind{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-gap: 2rem;
     margin: 2rem;
 } */
-
-.container_type_ind{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    grid-gap: 2rem;
-    margin: 2rem;
-}
 
 
 .container_type_ind h4{
@@ -56,8 +68,10 @@
     justify-content: center;
 }
 
-.container_created  h3{
-     font-size: 1.8rem;
+.container_created h3{
+     font-size: 2.2rem;
+     align-self: center;
+     justify-self: center;
  }
 
 .loading{
@@ -69,8 +83,6 @@
     top:0;
     left:0;
 }
-
-
 
 .loader {
     position: absolute;
@@ -90,3 +102,17 @@
     }
    }
    
+
+   @media screen and (max-width: 600px) {
+    .container_paginated_pokemons, .container_types{
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .container_created{
+        grid-template-columns: repeat(auto-fit, 300px);
+    }
+
+    .container_created img, .container_types img{
+        width: 100%;
+    }  
+}

@@ -7,7 +7,7 @@
     align-items: center;
     justify-content: center;
     background-image: var(--bg-blur),url('https://www.desktopbackground.org/download/3840x2160/2011/12/04/307118_all-pokemon-wallpapers-hd_3888x2459_h.jpg');
-    background-size: contain;
+    background-size: cover;
 }
 
 

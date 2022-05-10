@@ -3,7 +3,7 @@ const {Pokemon,Type} = require('../db.js');
 //http://localhost:3001
 
 const feedDb = async () =>{
-   let types = (await axios.get('http://localhost:3001/types')).data;
+   let types = (await axios.get('https://pipokemon-deploy.herokuapp.com/types')).data;
    types = types.map((el,index) => { return { name:el,id:index } });
    await Type.bulkCreate(types);
 };

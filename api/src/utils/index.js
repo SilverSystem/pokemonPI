@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 const {Pokemon,Type} = require('../db.js');
-//http://localhost:3001
+//http://localhost:3001 https://pipokemon-deploy.herokuapp.com
 
 const feedDb = async () =>{
    let types = (await axios.get('https://pipokemon-deploy.herokuapp.com/types')).data;

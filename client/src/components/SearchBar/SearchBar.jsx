@@ -13,6 +13,7 @@ export default function SearchBar({handleSearched}){
       handleSearched(search.toLowerCase());
       dispatch(getByName(search.toLowerCase()));
     } else{
+      alert('The search field is empty, enter a pokemon name');
       handleSearched('');
     }
     setSearch('');

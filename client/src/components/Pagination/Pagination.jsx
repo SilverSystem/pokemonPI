@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import s from './Pagination.module.css';
 import { Link } from "react-router-dom";
 // deberia recibir currentPage asi al mapear hacer un if de si pageNumber igual currentPage,
@@ -10,6 +10,9 @@ export default function Pagination({pokemonsPerPage,totalPokemons,paginate}){
         pageNumbers.push(i);
     }
 
+    useEffect(() =>{
+        return () => paginate(1)
+    },[]) // eslint-disable-line
     return (
         <div className={s.container_pagination}>
             <ul>
